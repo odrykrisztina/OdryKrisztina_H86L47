@@ -20,11 +20,11 @@ A program célja képeken található pálcikák automatikus detektálása és m
 ### 3.1 Fájlrendszer
 ```
 projekt/
-├── main.py           # Fő program fájl
-├── images/          # Bemeneti képek mappája
+├── main.py             # Fő program fájl
+├── images/             # Bemeneti képek mappája
 │   ├── palcika1.jpg
 │   └── palcika2.jpg
-└── output/          # Kimeneti képek mappája
+└── output/             # Kimeneti képek mappája
 ```
 
 ### 3.2 Osztályok és Függvények
@@ -168,7 +168,16 @@ Az `ImageProcessor` osztály a képfeldolgozási műveletek végrehajtásáért 
    - Billentyűleütésre várakozás
 
 ![Végső eredmény](./output/palcika2_result.jpg)
+
 *6. ábra: Végső eredmény a második képen*
+
+![Végső eredmény](./output/palcika3_result.jpg)
+
+*7. ábra: Végső eredmény a harmadik képen*
+
+![Végső eredmény](./output/palcika4_result.jpg)
+
+*8. ábra: Végső eredmény a negyedik képen*
 
 ## 5. Felhasználói Interakció
 
@@ -177,6 +186,8 @@ Az `ImageProcessor` osztály a képfeldolgozási műveletek végrehajtásáért 
 2. Kép kiválasztása:
    - 1-es gomb: palcika1.jpg
    - 2-es gomb: palcika2.jpg
+   - 3-as gomb: palcika3.jpg
+   - 4-es gomb: palcika4.jpg
 
 ### 5.2 Eredmények Megtekintése
 1. Az eredmény ablak automatikusan megjelenik
@@ -187,7 +198,7 @@ Az `ImageProcessor` osztály a képfeldolgozási műveletek végrehajtásáért 
 ### 5.3 Kimeneti Fájlok
 A program az alábbi fájlokat menti az output mappába:
 - `*_binary.jpg`: Binarizált kép
-- `*_edges.jpg`: Él-detektálás eredménye
+- `*_edges.jpg` : Él-detektálás eredménye
 - `*_result.jpg`: Végső eredmény a jelölésekkel
 
 ## 6. Paraméterek Finomhangolása
