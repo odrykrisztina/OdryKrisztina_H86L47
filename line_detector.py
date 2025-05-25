@@ -8,24 +8,27 @@ from constants import MIN_ANGLE_DIFF
 
 class LineDetector:
 
+    """ Vonal hosszának számítása """
     @staticmethod
     def line_length(line):
-        """Vonal hosszának számítása"""
         x1, y1, x2, y2 = line[0]
         return sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
 
+
+    """Vonal szögének számítása"""
     @staticmethod
     def get_line_angle(line):
-        """Vonal szögének számítása"""
         x1, y1, x2, y2 = line[0]
         angle = np.arctan2(y2 - y1, x2 - x1) * 180 / np.pi
         if angle < 0:
             angle += 180
         return angle
 
+
+    """Két vonal metszéspontjának meghatározása"""
     @staticmethod
     def find_intersection(line1, line2):
-        """Két vonal metszéspontjának meghatározása"""
+
         x1, y1, x2, y2 = line1[0]
         x3, y3, x4, y4 = line2[0]
 
@@ -62,9 +65,11 @@ class LineDetector:
 
         return None
 
+
+    """ Ellenőrzi, hogy két vonal párhuzamos és közel van-e egymáshoz """
     @staticmethod
     def are_lines_parallel_and_close(line1, line2, max_angle_diff=15, max_distance=60):
-        """Ellenőrzi, hogy két vonal párhuzamos és közel van-e egymáshoz"""
+
         angle1 = LineDetector.get_line_angle(line1)
         angle2 = LineDetector.get_line_angle(line2)
 
@@ -115,9 +120,11 @@ class LineDetector:
                 mid_dist < max_distance * 2 and
                 dot_product > 0.85)
 
+
+    """ Vonalak összevonása """
     @staticmethod
     def merge_lines(lines):
-        """Vonalak összevonása"""
+
         if lines is None:
             return None
 
@@ -167,9 +174,11 @@ class LineDetector:
 
         return merged_lines
 
+
+    """ Összefüggő vonalak keresése """
     @staticmethod
     def find_connected_lines(start_idx, parallel_groups):
-        """Összefüggő vonalak keresése"""
+
         connected = set()
         to_process = {start_idx}
 
