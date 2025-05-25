@@ -45,27 +45,27 @@ INPUT_DIR = "./images"
 OUTPUT_DIR = "./output"
 
 
+"""Vonalak detektálásáért és feldolgozásáért felelős osztály"""
 class LineDetector:
-    """Vonalak detektálásáért és feldolgozásáért felelős osztály"""
 
+    """Vonal hosszának számítása"""
     @staticmethod
     def line_length(line):
-        """Vonal hosszának számítása"""
         x1, y1, x2, y2 = line[0]
         return sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
 
+    """Vonal szögének számítása"""
     @staticmethod
     def get_line_angle(line):
-        """Vonal szögének számítása"""
         x1, y1, x2, y2 = line[0]
         angle = np.arctan2(y2 - y1, x2 - x1) * 180 / np.pi
         if angle < 0:
             angle += 180
         return angle
 
+    """Két vonal metszéspontjának meghatározása"""
     @staticmethod
     def find_intersection(line1, line2):
-        """Két vonal metszéspontjának meghatározása"""
         x1, y1, x2, y2 = line1[0]
         x3, y3, x4, y4 = line2[0]
 
@@ -80,19 +80,19 @@ class LineDetector:
             return None
 
         # Metszéspont számítása
-        A1 = y2 - y1
-        B1 = x1 - x2
-        C1 = A1 * x1 + B1 * y1
-        A2 = y4 - y3
-        B2 = x3 - x4
-        C2 = A2 * x3 + B2 * y3
-        det = A1 * B2 - A2 * B1
+        a1 = y2 - y1
+        b1 = x1 - x2
+        c1 = a1 * x1 + b1 * y1
+        a2 = y4 - y3
+        b2 = x3 - x4
+        c2 = a2 * x3 + b2 * y3
+        det = a1 * b2 - a2 * b1
 
         if det == 0:
             return None
 
-        x = (B2 * C1 - B1 * C2) / det
-        y = (A1 * C2 - A2 * C1) / det
+        x = (b2 * c1 - b1 * c2) / det
+        y = (a1 * c2 - a2 * c1) / det
 
         if (min(x1, x2) <= x <= max(x1, x2) and
                 min(y1, y2) <= y <= max(y1, y2) and
@@ -102,9 +102,10 @@ class LineDetector:
 
         return None
 
+    """Ellenőrzi, hogy két vonal párhuzamos és közel van-e egymáshoz"""
     @staticmethod
     def are_lines_parallel_and_close(line1, line2, max_angle_diff=15, max_distance=60):
-        """Ellenőrzi, hogy két vonal párhuzamos és közel van-e egymáshoz"""
+
         angle1 = LineDetector.get_line_angle(line1)
         angle2 = LineDetector.get_line_angle(line2)
 
@@ -155,9 +156,10 @@ class LineDetector:
                 mid_dist < max_distance * 2 and
                 dot_product > 0.85)
 
+    """Vonalak összevonása"""
     @staticmethod
     def merge_lines(lines, min_distance=60, min_angle_diff=15):
-        """Vonalak összevonása"""
+
         if lines is None:
             return None
 
@@ -207,9 +209,10 @@ class LineDetector:
 
         return merged_lines
 
+    """Összefüggő vonalak keresése"""
     @staticmethod
     def find_connected_lines(start_idx, merged_lines, intersection_map, parallel_groups):
-        """Összefüggő vonalak keresése"""
+
         connected = set()
         to_process = {start_idx}
 
@@ -227,12 +230,13 @@ class LineDetector:
         return connected
 
 
+"""Képfeldolgozásért felelős osztály"""
 class ImageProcessor:
-    """Képfeldolgozásért felelős osztály"""
 
+    """Kép előfeldolgozása"""
     @staticmethod
     def preprocess_image(image):
-        """Kép előfeldolgozása"""
+
         gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         blurred = cv2.GaussianBlur(gray, (5, 5), 0)
         binary = cv2.adaptiveThreshold(blurred, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
@@ -242,14 +246,15 @@ class ImageProcessor:
         edges = cv2.Canny(binary, 30, 150)
         return binary, edges
 
+    """Vonalak detektálása Hough transzformációval"""
     @staticmethod
     def detect_lines(edges):
-        """Vonalak detektálása Hough transzformációval"""
         return cv2.HoughLinesP(edges, **HOUGH_PARAMS)
 
+    """Egyedi színek generálása"""
     @staticmethod
     def generate_distinct_colors(n):
-        """Egyedi színek generálása"""
+
         colors = []
         for i in range(n):
             hue = int(180 * i / n)
@@ -263,8 +268,9 @@ class ImageProcessor:
         return colors
 
 
+"""Kép mentése az output könyvtárba"""
 def save_image(image, base_filename, suffix):
-    """Kép mentése az output könyvtárba"""
+
     # Output könyvtár létrehozása, ha nem létezik
     if not os.path.exists(OUTPUT_DIR):
         os.makedirs(OUTPUT_DIR)
@@ -278,8 +284,9 @@ def save_image(image, base_filename, suffix):
     print(f"Kep mentve: {output_filename}")
 
 
+"""Főprogram"""
 def main():
-    """Főprogram"""
+
     # Felhasználói választás
     print("\nVálasszon egy képet az elemzéshez:")
     print("1 - palcika1.jpg")
