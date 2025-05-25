@@ -21,6 +21,9 @@ A program célja képeken található pálcikák automatikus detektálása és m
 ```
 projekt/
 ├── main.py             # Fő program fájl
+├── line_detector.py    # Vonalak detektálása
+├── image_processor.py  # Képfeldolgozás
+├── constants.py        # Konstansok
 ├── images/             # Bemeneti képek mappája
 │   ├── palcika1.jpg
 │   └── palcika2.jpg
