@@ -1,5 +1,5 @@
 """
-ImageProcessor osztály a képfeldolgozási műveletek végrehajtásához
+ImageProcessor - Kép műveletek
 """
 
 import cv2
@@ -22,10 +22,12 @@ class ImageProcessor:
         edges = cv2.Canny(binary, 30, 150)
         return binary, edges
 
+
     """ Vonalak detektálása """
     @staticmethod
     def detect_lines(edges):
         return cv2.HoughLinesP(edges, **HOUGH_PARAMS)
+
 
     """ Egyedi színek generálása """
     @staticmethod
