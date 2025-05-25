@@ -1,1 +1,1 @@
-# OdryKrisztina_H86L47
+# Pálcika detektáló program
