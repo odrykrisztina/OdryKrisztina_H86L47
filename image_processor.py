@@ -1,5 +1,5 @@
 """
-ImageProcessor - Kép műveletek
+ImageProcessor - Képfeldolgozás
 """
 
 import cv2

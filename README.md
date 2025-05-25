@@ -26,7 +26,9 @@ projekt/
 ├── constants.py        # Konstansok
 ├── images/             # Bemeneti képek mappája
 │   ├── palcika1.jpg
-│   └── palcika2.jpg
+│   ├── palcika2.jpg
+│   ├── palcika3.jpg
+│   └── palcika4.jpg
 └── output/             # Kimeneti képek mappája
 ```
 
